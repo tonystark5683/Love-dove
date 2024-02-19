@@ -8,14 +8,13 @@ const Register = () => {
   const navigate = useNavigate();
 
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
   const [user, setUserDetails] = useState({
-    fname: "",
-    rnumber: "",
-    email: "",
+    name: "",
+    reg: "",
+    mail: "",
     password: "",
-    cpassword: "",
     gender: "",
+    cpassword: "", // Added missing field
   });
 
   const changeHandler = (e) => {
@@ -29,16 +28,16 @@ const Register = () => {
   const validateForm = (values) => {
     const error = {};
     const regex = /^[^\s+@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!values.fname) {
-      error.fname = "First Name is required";
+    if (!values.name) {
+      error.name = "First Name is required";
     }
-    if (!values.rnumber) {
-      error.rnumber = "Registration No is required";
+    if (!values.reg) {
+      error.reg = "Registration No is required";
     }
-    if (!values.email) {
-      error.email = "Email is required";
-    } else if (!regex.test(values.email)) {
-      error.email = "This is not a valid email format!";
+    if (!values.mail) {
+      error.mail = "Email is required";
+    } else if (!regex.test(values.mail)) {
+      error.mail = "This is not a valid email format!";
     }
     if (!values.password) {
       error.password = "Password is required";
@@ -54,45 +53,63 @@ const Register = () => {
     }
     return error;
   };
-  const signupHandler = (e) => {
+
+
+  // useEffect(() => {
+  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
+  //     console.log(user);
+  //     axios.post("/add-user", user,  {
+  //       headers: {
+  //         'Content-Type': 'application/x-www-form-urlencoded',
+  //       }
+  //     }).then((res) => {
+  //       alert(res.data.message);
+  //       navigate("/login", { replace: true });
+  //     });
+  //   }
+  // }, [formErrors]);
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormErrors(validateForm(user));
-    setIsSubmit(true);
-    // if (!formErrors) {
-    //   setIsSubmit(true);
-    // }
+    // setFormErrors(validateForm(user)); // Validate form
+    try {
+      console.log(user);
+      const response = await axios.post('/add-user/', user, {headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }
+});
+      console.log(response.data);
+      // Handle success response here
+    } catch (error) {
+      console.error('Error:', error.message);
+      // Handle error here
+    }
   };
 
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(user);
-      axios.post("http://localhost:9002/signup/", user).then((res) => {
-        alert(res.data.message);
-        navigate("/login", { replace: true });
-      });
-    }
-  }, [formErrors]);
+
+
   return (
     <>
       <div className={registerstyle.register}>
-        <form>
+        <form  onSubmit={handleSubmit}>
           <h1>Create your account</h1>
           <input
             type="text"
-            name="fname"
-            id="fname"
+            name="name"
+            id="name"
             placeholder="First Name"
             onChange={changeHandler}
-            value={user.fname}
+            value={user.name}
           />
-          <p className={basestyle.error}>{formErrors.fname}</p>
+          <p className={basestyle.error}>{formErrors.name}</p>
           <input
             type="text"
-            name="rnumber"
-            id="rnumber"
+            name="reg"
+            id="reg"
             placeholder="Registration No"
             onChange={changeHandler}
-            value={user.rnumber}
+            value={user.reg}
           />
           <p className={basestyle.error}>{formErrors.rnumber}</p>
           <select
@@ -109,11 +126,11 @@ const Register = () => {
           
           <input
             type="email"
-            name="email"
-            id="email"
+            name="mail"
+            id="mail"
             placeholder="Email"
             onChange={changeHandler}
-            value={user.email}
+            value={user.mail}
           />
           <p className={basestyle.error}>{formErrors.email}</p>
           <input
@@ -134,7 +151,7 @@ const Register = () => {
             value={user.cpassword}
           />
           <p className={basestyle.error}>{formErrors.cpassword}</p>
-          <button className={basestyle.button_common} onClick={signupHandler}>
+          <button className={basestyle.button_common} type="submit">
             Register
           </button>
         </form>

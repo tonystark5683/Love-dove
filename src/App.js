@@ -4,34 +4,33 @@ import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import Navbar from "./Components/Navbar/Navbar";
+
 function App() {
   const [userstate, setUserState] = useState({});
   return (
     <div className="App">
       <Router>
-        <Navbar/>
         <Routes>
           <Route
             path="/"
-            // element={
-            //   userstate && userstate._id ? (
-            //     <Profile
-            //       setUserState={setUserState}
-            //       username={userstate.fname}
-            //     />
-            //   ) : (
-            //     <Login setUserState={setUserState} />
-            //   )
-            // }
             element={
-            
+              userstate && userstate._id ? (
                 <Profile
                   setUserState={setUserState}
                   username={userstate.fname}
                 />
-              
+              ) : (
+                <Login setUserState={setUserState} />
+              )
             }
+            // element={
+            
+            //     <Profile
+            //       setUserState={setUserState}
+            //       username={userstate.fname}
+            //     />
+              
+            // }
           ></Route>
           <Route
             path="/login"

@@ -8,7 +8,7 @@ const Login = ({ setUserState }) => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [user, setUserDetails] = useState({
-    email: "",
+    rnumber: "",
     password: "",
   });
 
@@ -21,11 +21,9 @@ const Login = ({ setUserState }) => {
   };
   const validateForm = (values) => {
     const error = {};
-    const regex = /^[^\s+@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!values.email) {
-      error.email = "Email is required";
-    } else if (!regex.test(values.email)) {
-      error.email = "Please enter a valid email address";
+    // const regex = /^[^\s+@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.rnumber) {
+      error.fname = "Reg No is required";
     }
     if (!values.password) {
       error.password = "Password is required";
@@ -45,12 +43,11 @@ const Login = ({ setUserState }) => {
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(user);
-      navigate("/", { replace: true });
-      // axios.post("http://localhost:9002/login", user).then((res) => {
-      //   alert(res.data.message);
-      //   setUserState(res.data.user);
-      //   navigate("/", { replace: true });
-      // });
+      axios.post("/login", user).then((res) => {
+        alert(res.data.message);
+        setUserState(res.data.user);
+        navigate("/", { replace: true });
+      });
     }
   }, [formErrors]);
   return (
@@ -58,14 +55,14 @@ const Login = ({ setUserState }) => {
       <form>
         <h1>Login</h1>
         <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email"
+          type="text"
+          name="rnumber"
+          id="rnumber"
+          placeholder="Registration no"
           onChange={changeHandler}
-          value={user.email}
+          value={user.rnumber}
         />
-        <p className={basestyle.error}>{formErrors.email}</p>
+        <p className={basestyle.error}>{formErrors.rnumber}</p>
         <input
           type="password"
           name="password"
