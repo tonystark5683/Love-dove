@@ -1,0 +1,136 @@
+.n-wrapper{
+    background: #0003;
+    width: 100%;
+    position: absolute;
+    z-index: 999;/*will made our navbar to the top of evry element*/
+    transition:  0.6s ;
+}
+.sticky{
+    position: fixed;
+    box-shadow: 10px 12px 48px rgba(181, 187, 203, .206);
+    background-color: white;
+    color: black;
+    top: 0;
+}
+
+.n-container{
+    padding: 1rem 1rem;
+    color: white;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    transition:  0.6s ; 
+}
+.sticky .n-container{
+    color: black;
+    padding: 1rem;
+    transition:  0.6s ; 
+}
+
+.n-logo{
+     font-weight: bold;
+     cursor: pointer;
+}
+
+.n-right{
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    font-size: 0.9rem;
+
+}
+.options{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+}
+
+
+.options span{
+    cursor: pointer;
+}
+
+.get-quote{
+    color: whitesmoke;
+    background-color: var(--allbgcolor);
+    padding: 1rem 1.6rem;
+    font-size: 1rem;
+    text-transform: capitalize;
+    border-radius: 999px;
+    box-shadow: 0px 1px 8px 1px white;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.get-quote:hover{
+    background-color: #537ef5;
+   
+}
+
+.nm-container{
+    display: none;
+}
+
+@media(max-width:1200px){
+    .n-container{
+        display: none;
+    }
+    .nm-container{
+        display: block;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        position: relative;
+        background-color: var(--allbgcolor);
+
+
+    }
+    .nm-container >:nth-child(1){
+        font-weight: bold;
+    }
+    .m-options{
+        position: fixed;
+        top: 3.9rem;
+        padding: 3rem 2rem;
+        box-sizing: border-box;
+        display: flex;
+        left: 0;
+        background-color: var(--allbgcolor);
+        flex-direction: column;
+        width: 100%;
+        font-size: 1.2rem;
+        z-index: 99;/*top of each element*/
+        height: calc(100vh - 4rem);
+        transform: translateX(-150%);
+        transition: all 300ms ease-in-out;
+    }
+    .m-options a{
+         margin-bottom: 2rem; 
+         padding-bottom: 1rem;
+         border-bottom: 1px solid var(--border-color);
+    }
+    .mget-quote{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 1rem 0rem;
+        color: white;
+        background-color: var(--allbgcolor);
+        padding: 1rem 1.6rem;
+        border-radius: 999px;
+        box-shadow: 0px 1px 8px 1px white;
+        cursor: pointer;
+        transition: all 0.5s ease;
+
+    }
+}
+
