@@ -13,24 +13,24 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={
-              userstate && userstate._id ? (
-                <Profile
-                  setUserState={setUserState}
-                  username={userstate.fname}
-                />
-              ) : (
-                <Login setUserState={setUserState} />
-              )
-            }
             // element={
-            
+            //   userstate && userstate._id ? (
             //     <Profile
             //       setUserState={setUserState}
             //       username={userstate.fname}
             //     />
-              
+            //   ) : (
+            //     <Login setUserState={setUserState} />
+            //   )
             // }
+            element={
+            
+                <Profile
+                  setUserState={setUserState}
+                  username={userstate.fname}
+                />
+              
+            }
           ></Route>
           <Route
             path="/login"
